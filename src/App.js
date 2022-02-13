@@ -68,7 +68,7 @@ const AlternativeText2 = styled.p`
 
 //const AlternativeButton = styled.span``
 
-const Dots = styled.div`
+/*const Dots = styled.div`
 	display: flex;
 	flex-direction: column;
 `
@@ -80,7 +80,7 @@ const Dot = styled.span`
 	margin: 0;
 	padding: 0;
 	height: 30px;
-`
+`*/
 
 const Arrow = styled.img`
 	position: absolute;
