@@ -1,15 +1,33 @@
-import styled from 'styled-components'
+import React, { useState } from 'react'
+import styled, { createGlobalStyle } from 'styled-components'
 import 'typeface-roboto'
 import 'typeface-playfair-display'
 import arrow from './pics/curve-arrow.png'
 import isak from './pics/isak-apples.jpg'
 import gina from './pics/gina-bagle.png'
+import 'animate.css'
+
+const GlobalStyle = createGlobalStyle`
+	.animate__heartBeat {
+    animation-delay: 2s;
+	}
+  .animate__bounceInLeft{
+    animation-duration: 2s;
+  }
+
+  .animate__pulse {
+    animation-delay: 2s;
+  }
+  .animate__slideInUp {
+    animation-duration: 2s;
+  }
+`
 
 const QuestionBox = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 54px;
+	margin-top: 0px;
 	margin-bottom: 54px;
 `
 
@@ -66,26 +84,10 @@ const AlternativeText2 = styled.p`
 	box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.33);
 `
 
-//const AlternativeButton = styled.span``
-
-/*const Dots = styled.div`
-	display: flex;
-	flex-direction: column;
-`
-
-const Dot = styled.span`
-	font-family: 'Roboto', sans-serif;
-	font-size: 48px;
-	content: '.';
-	margin: 0;
-	padding: 0;
-	height: 30px;
-`*/
-
 const Arrow = styled.img`
 	position: absolute;
 	width: 100px;
-	top: 230px;
+	top: 186px;
 `
 
 const Isak = styled.img`
@@ -97,29 +99,114 @@ const Isak = styled.img`
 const Gina = styled.img`
 	position: absolute;
 	width: 130px;
-	top: 540px;
+	top: 496px;
 	left: 100px;
+	display: none;
+`
+
+const SadEmoji = styled.span`
+	font-size: 100px;
+	margin-top: 150px;
+	margin-bottom: 100px;
+`
+
+const GoBack = styled.p`
+	background-color: #70a1ff;
+	font-size: 20px;
+	margin: 0 20px;
+	padding: 16px 0;
+	width: 180px;
+	color: white;
+	border-radius: 50px;
+	cursor: pointer;
+	text-align: center;
+	font-weight: 700;
+	font-family: 'Roboto', sans-serif;
+	box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.33);
+`
+
+const Heart = styled.span`
+	font-size: 64px;
+	display: block;
+`
+
+const HeartBox = styled.div`
+	position: absolute;
+	left: 175px;
+	top: 550px;
+	@keyframes showNav {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
 `
 
 function App() {
+	const [yesBtnClicked, setYesBtnClicked] = useState(false)
+	const [noBtnClicked, setNoBtnClicked] = useState(false)
+
+	const reset = () => {
+		setYesBtnClicked(false)
+		setNoBtnClicked(false)
+	}
+
 	return (
 		<div className='App'>
+			<GlobalStyle />
 			<div>
-				<QuestionBox>
-					<Name>GINA</Name>
-					<Question>will u be my gf?</Question>
-					<Arrow src={arrow} />
-					<AlternativeBox>
-						<Alternative>
-							<AlternativeText>yes 💗</AlternativeText>
-						</Alternative>
-						<Alternative>
-							<AlternativeText2>no 😔</AlternativeText2>
-						</Alternative>
-					</AlternativeBox>
-				</QuestionBox>
-				<Isak src={isak} />
-				<Gina src={gina} />
+				{noBtnClicked ? (
+					<>
+						<QuestionBox>
+							<SadEmoji>😭</SadEmoji>
+							<GoBack onClick={() => reset()}>go back ⬅️</GoBack>
+						</QuestionBox>
+					</>
+				) : (
+					<>
+						<QuestionBox>
+							<Name>GINA</Name>
+							<Question>will u be my gf?</Question>
+							<Arrow src={arrow} />
+							<AlternativeBox>
+								<Alternative
+									onClick={() => setYesBtnClicked(true)}
+									className='animate__animated animate__heartBeat'
+								>
+									<AlternativeText>yes 💗</AlternativeText>
+								</Alternative>
+								<Alternative
+									onClick={() => {
+										setNoBtnClicked(true)
+									}}
+								>
+									<AlternativeText2>no 😔</AlternativeText2>
+								</Alternative>
+							</AlternativeBox>
+						</QuestionBox>
+						<Isak src={isak} />
+						<Gina
+							src={gina}
+							className={
+								yesBtnClicked
+									? 'animate__animated animate__bounceInLeft'
+									: ''
+							}
+							style={yesBtnClicked ? { display: 'block' } : {}}
+						/>
+						{yesBtnClicked ? (
+							<HeartBox className='animate_animated animate__slideInUp'>
+								<Heart className='animate__animated animate__pulse animate__infinite'>
+									❤️
+								</Heart>
+							</HeartBox>
+						) : (
+							''
+						)}
+					</>
+				)}
 			</div>
 		</div>
 	)
