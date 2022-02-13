@@ -60,7 +60,7 @@ const AlternativeText2 = styled.p`
 	font-family: 'Roboto', sans-serif;
 `
 
-const AlternativeButton = styled.span``
+//const AlternativeButton = styled.span``
 
 const Dots = styled.div`
 	display: flex;
