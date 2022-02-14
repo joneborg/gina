@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
+import Helmet from 'react-helmet'
 import 'typeface-roboto'
 import 'typeface-playfair-display'
 import arrow from './pics/curve-arrow.png'
@@ -155,6 +156,13 @@ function App() {
 
 	return (
 		<div className='App'>
+			<Helmet>
+				<title>Question for Gina 💞</title>
+				<link
+					rel='icon'
+					href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💞</text></svg>'
+				/>
+			</Helmet>
 			<GlobalStyle />
 			<div>
 				{noBtnClicked ? (
